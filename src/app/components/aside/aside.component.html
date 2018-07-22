@@ -1,0 +1,64 @@
+<div class="">
+
+  <div class="card" style="width: 18rem;">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item active">Género</li>
+    </ul>
+    <ul class="list-group list-group-flush">
+      <li *ngFor="let genre of genres | async;let i = index" class="list-group-item">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="customChecks{{i}}">
+          <label class="custom-control-label" for="customChecks{{i}}">{{genre.cat}}</label>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <br>
+  <div class="card" style="width: 18rem;height:15rem;">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item active">Marca</li>
+    </ul>
+    <ul class="list-group list-group-flush" style="overflow-y:scroll;">
+      <li class="list-group-item">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="customCheck">
+          <label class="custom-control-label" for="customCheck">
+            hello
+          </label>
+        </div>
+      </li>
+      <!--<li class="list-group-item">Talla (calzado)</li>
+      <li class="list-group-item">Talla (ropa top)</li>
+      <li class="list-group-item">Marca </li>-->
+    </ul>
+  </div>
+  <br>
+  <div class="card" style="width: 18rem;height:20rem;">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item active">Color</li>
+    </ul>
+    <ul class="list-group list-group-flush" style="overflow-y:scroll;">
+      <li class="list-group-item">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="customCheckq">
+          <label class="custom-control-label" for="customCheckq">
+            Hello
+          </label>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <br>
+  <div class="card" style="width: 18rem;">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item active">Precios</li>
+      <li class="list-group-item">
+        <label for="priceRange">Rango de: 0 a
+          <input id="max" type="number" placeholder="Defina máximo" name="" value="">
+        </label>
+        <input type="range" class="custom-range" id="priceRange">
+      </li>
+    </ul>
+  </div>
+  <br>
+</div>

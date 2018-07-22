@@ -1,0 +1,28 @@
+<br>
+<div *ngIf="!access" class="dropdown">
+    <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Inicia sesión
+    </button>
+   
+
+<div class="dropdown-menu">
+<form  class="px-4 py-3">
+    <div class="form-group">
+      <label for="exampleDropdownFormEmail2">Correo</label>
+      <input type="email" class="form-control" [(ngModel)]="username" name="username" id="exampleDropdownFormEmail2" placeholder="email@example.com">
+    </div>
+    <div class="form-group">
+      <label for="exampleDropdownFormPassword2">Contraseña</label>
+      <input type="password" class="form-control" [(ngModel)]="password" name="password"  required id="exampleDropdownFormPassword2" placeholder="Password">
+    </div>
+    
+    <button type="button" (click)="login()" class="btn btn-primary">Iniciar sesión</button>
+  </form>
+
+</div>
+
+</div>
+
+<div *ngIf="access">
+    <a href="/admin"> {{username}} </a>
+</div>
