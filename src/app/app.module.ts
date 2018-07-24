@@ -7,6 +7,7 @@ import { APP_ROUTING } from './app.routes';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 
 
 
@@ -21,6 +22,8 @@ import { ProductsComponent } from './components/products/products.component';
 import { NewsComponent } from './components/news/news.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { LoginComponent } from './components/login/login.component';
+import { LoadingComponent } from './components/shared/loading/loading.component';
+import { StorageComponent } from './components/shared/storage/storage.component';
 
 //modules
 
@@ -35,7 +38,9 @@ import { LoginComponent } from './components/login/login.component';
     ProductsComponent,
     NewsComponent,
     FooterComponent,
-    LoginComponent
+    LoginComponent,
+    LoadingComponent,
+    StorageComponent
   ], 
   imports: [
     BrowserModule,
@@ -44,6 +49,7 @@ import { LoginComponent } from './components/login/login.component';
     AngularFirestoreModule.enablePersistence(),
     AngularFireDatabaseModule,
     AngularFirestoreModule,
+    AngularFireStorageModule,
     APP_ROUTING
   ],
   providers: [],

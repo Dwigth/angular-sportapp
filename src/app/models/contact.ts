@@ -1,6 +1,5 @@
-export class Contact {
-    constructor(
-        public email:string,
-        public exp:string
-    ){ }
+export interface Contact {    
+        email:string;
+        exp:string;
+        date:string;
 }

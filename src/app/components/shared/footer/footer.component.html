@@ -1,4 +1,3 @@
-
 <hr>
 
 
@@ -112,7 +111,8 @@
       <h5 class="mb-1">Contactanos</h5>
     </li>
     <li class="list-inline-item">
-      <button class="btn btn-danger btn-rounded " type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      <button class="btn btn-danger btn-rounded " type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
+        aria-controls="collapseExample">
         ¡Click aquí!
       </button>
       <!--<a href="#!" class="btn btn-danger btn-rounded">Sign up!</a>-->
@@ -120,22 +120,22 @@
   </ul>
   <div class="collapse" id="collapseExample">
     <div class="card card-body">
-<div class="container">
+      <div class="container">
 
+        <form  *ngIf="!cargando" #experience="ngForm" (ngSubmit)="onContact(experience)">
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Correo electrónico</label>
+            <input name="email" ngModel required #email="ngModel" type="email" class="form-control" id="exampleFormControlInput1" placeholder="correo@asombroso.com">
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">¡Cuentanos tu experiencia!</label>
+            <textarea name="exp" ngModel required #exp="ngModel" class="form-control" id="exampleFormControlTextarea1" rows="3"> </textarea>
+          </div>
+          <button type="submit" class="btn btn-success" name="button">Enviar</button>
+        </form>
 
-      <form>
-  <div class="form-group">
-    <label for="exampleFormControlInput1">Correo electrónico</label>
-    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="correo@asombroso.com">
-  </div>
-  <div class="form-group">
-    <label for="exampleFormControlTextarea1">¡Cuentanos tu experiencia!</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"> </textarea>
-  </div>
-      <button type="button" class="btn btn-success" name="button">Enviar</button>
-
-</form>
-</div>
+        <app-loading *ngIf="cargando" ></app-loading>
+      </div>
 
     </div>
   </div>
@@ -167,7 +167,7 @@
     </li>
     <li class="list-inline-item">
       <a class="btn-floating btn-dribbble mx-1">
-        <i class="fa fa-dribbble">  </i>
+        <i class="fa fa-dribbble"> </i>
       </a>
     </li>
   </ul>
@@ -178,5 +178,4 @@
     <a href="">Sport-app</a>
   </div>
   <!-- Copyright -->
-
 </footer>

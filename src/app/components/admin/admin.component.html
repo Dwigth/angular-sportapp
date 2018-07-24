@@ -1,3 +1,475 @@
-<p>
-  admin works!
-</p>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Bienvenido</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav" id="nav">
+      <a class="nav-item nav-link active" style="cursor: pointer;">Productos
+        <span class="sr-only">(current)</span>
+      </a>
+      <a class="nav-item nav-link" style="cursor: pointer;">Noticias</a>
+      <a class="nav-item nav-link" style="cursor: pointer;">Contacto</a>
+    </div>
+  </div>
+</nav>
+
+<hr>
+
+<div id="producto">
+  <div class="row">
+    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+      <form *ngIf="!editando" #Nproduct="ngForm" (ngSubmit)="onCreate(Nproduct)" id="form" method="post" enctype="multipart/form-data">
+        <div>
+          <label for="name">Nombre</label>
+          <br>
+          <input name="name" ngModel required minlength="4" #name="ngModel" id="name" type="text">
+
+        </div>
+        <div>
+          <label for="price">Precio</label>
+          <br>
+          <input name="price" ngModel required #price="ngModel" id="price" type="text">
+        </div>
+
+        <div>
+          <br>
+          <app-storage></app-storage>
+        </div>
+
+        <div>
+          <label for="color">Color primario</label>
+          <br>
+          <select name="color" ngModel required #color="ngModel" id="color">
+            <option value="">Selecciona un color</option>
+            <option *ngFor="let color of Colors | async" value="{{color.name}}">{{color.name}}</option>
+          </select>
+        </div>
+        <div>
+          <label for="marca">Marca</label>
+          <br>
+          <select name="brand" ngModel required #brand="ngModel" id="marca">
+            <option value="">Selecciona una marca</option>
+            <option *ngFor="let brand of Brands | async" value="{{brand.name}}">{{brand.name}}</option>
+          </select>
+        </div>
+        <div>
+          <label for="categoria">Categoría</label>
+          <br>
+          <select name="cat" ngModel required #cat="ngModel" id="categoria">
+            <option value="">Selecciona una categoria</option>
+            <option *ngFor="let genre of Genres | async;" value="{{genre.cat}}">{{genre.cat}}</option>
+          </select>
+        </div>
+        <div>
+          <label for="type">Tipo de ropa</label>
+          <br>
+          <select name="type" ngModel required #type="ngModel" id="type">
+            <option value="">Selecciona un tipo</option>
+            <option *ngFor="let type of Types | async" value="{{type.name}}">{{type.name}}</option>
+          </select>
+        </div>
+        <br>
+        <input class="btn" type="submit" value="Agregar">
+      </form>
+
+
+      <form *ngIf="editando" #Eproduct="ngForm" (ngSubmit)="onEdit(Eproduct)" id="pedit" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="id">ID</label>
+            <br>
+            <input name="id" ngModel required minlength="4" disabled #id="ngModel" id="id" type="text">
+  
+          </div>
+        <div>
+          <label for="name">Nombre</label>
+          <br>
+          <input name="name" ngModel required minlength="4" #name="ngModel" id="name" type="text">
+
+        </div>
+        <div>
+          <label for="price">Precio</label>
+          <br>
+          <input name="price" ngModel required #price="ngModel" id="price" type="text">
+        </div>
+
+        <div>
+          <label for="img">Imagen Previa</label>
+          <br>
+          <img src="" id="img" width="150px" alt="">
+          <br>
+          <app-storage></app-storage>
+        </div>
+
+        <div>
+          <label for="color">Color primario</label>
+          <br>
+          <select name="color" ngModel required #color="ngModel" id="color">
+            <option value="">Selecciona un color</option>
+            <option *ngFor="let color of Colors | async" value="{{color.name}}">{{color.name}}</option>
+          </select>
+        </div>
+        <div>
+          <label for="marca">Marca</label>
+          <br>
+          <select name="brand" ngModel required #brand="ngModel" id="marca">
+            <option value="">Selecciona una marca</option>
+            <option *ngFor="let brand of Brands | async" value="{{brand.name}}">{{brand.name}}</option>
+          </select>
+        </div>
+        <div>
+          <label for="categoria">Categoría</label>
+          <br>
+          <select name="cat" ngModel required #cat="ngModel" id="categoria">
+            <option value="">Selecciona una categoria</option>
+            <option *ngFor="let genre of Genres | async;" value="{{genre.cat}}">{{genre.cat}}</option>
+          </select>
+        </div>
+        <div>
+          <label for="type">Tipo de ropa</label>
+          <br>
+          <select name="type" ngModel required #type="ngModel" id="type">
+            <option value="">Selecciona un tipo</option>
+            <option *ngFor="let type of Types | async" value="{{type.name}}">{{type.name}}</option>
+          </select>
+        </div>
+        <br>
+
+
+        <input class="btn" type="submit" value="Editar">
+
+      </form>
+    </div>
+
+
+    <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8" style="height: 30rem;overflow-y:scroll;">
+      <table *ngIf="!loading" class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Imagen</th>
+            <th scope="col">Color</th>
+            <th scope="col">Marca</th>
+            <th scope="col">Para</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Editar</th>
+            <th scope="col">Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of Products | async; let i = index">
+            <th scope="row">{{i+i}}</th>
+            <td>{{product.name}}</td>
+            <td>$ {{product.price}}</td>
+            <td>
+              <img [src]="product.img" width="150px" alt="" srcset=""> </td>
+            <td>{{product.color_id}}</td>
+            <td>{{product.brand_id}}</td>
+            <td>{{product.genre_id}}</td>
+            <td>{{product.type_id}}</td>
+            <td>
+              <button (click)="onSelectProduct(product)" class="btn btn-success">Editar</button>
+            </td>
+            <td>
+              <button (click)="API.deleteProduct(product.id)" class="btn btn-danger">X</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <app-loading *ngIf="loading"></app-loading>
+
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+      <form #Ncolor="ngForm" (ngSubmit)="onColor(Ncolor)" id="colorForm" action="">
+        <div>
+          <label for="text_c">Nombre Color</label>
+          <br>
+          <input name="name" ngModel required #name="ngModel" id="text_c" type="text">
+        </div>
+        <br>
+        <button class="btn" type="submit">Agregar color</button>
+      </form>
+      <br>
+      <div style="height: 10rem;overflow-y:scroll;">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Eliminar</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let color of Colors | async; let i = index">
+              <th scope="row">{{i+1}}</th>
+              <td>{{color.name}}</td>
+              <td>
+                <button (click)="API.deleteColor(color.id)" class="btn btn-danger">X</button>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+      <form #Nbrand="ngForm" (ngSubmit)="onBrand(Nbrand)" id="marcaForm" action="">
+        <div>
+          <label for="text_m">Nombre marca</label>
+          <br>
+          <input name="name" ngModel required #name="ngModel" id="text_m" type="text">
+        </div>
+        <br>
+        <button class="btn" type="submit">Agregar marca</button>
+      </form>
+      <br>
+      <div style="height: 10rem;overflow-y:scroll;">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Eliminar</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let brand of Brands | async; let i = index">
+              <th scope="row">{{i+1}}</th>
+              <td>{{brand.name}}</td>
+              <td>
+                <button (click)="API.deleteBrand(brand.id)" class="btn btn-danger">X</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+      <form #Ntype="ngForm" (ngSubmit)="onType(Ntype)" id="tipoForm" action="">
+        <div>
+          <label for="text_m">Nombre tipo de ropa</label>
+          <br>
+          <input name="name" ngModel required #name="ngModel" id="text_m" type="text">
+        </div>
+        <br>
+        <button class="btn" type="submit">Agregar marca</button>
+      </form>
+      <br>
+      <div style="height: 10rem;overflow-y:scroll;">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Eliminar</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let type of Types | async; let i = index">
+              <th scope="row">{{i+1}}</th>
+              <td>{{type.name}}</td>
+              <td>
+                <button (click)="API.deleteType(type.id)" class="btn btn-danger">X</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="noticias" style="display: none;">
+    <div class="row">
+      <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+        <form *ngIf="!editando" #News="ngForm" (ngSubmit)="onCreateNew(News)" id="nform" method="post" enctype="multipart/form-data">
+          <div>
+            <label for="title">Título</label>
+            <br>
+            <input name="title" ngModel required minlength="4" #title="ngModel" id="title" type="text">
+  
+          </div>
+          <div>
+            <label for="body">Cuerpo de noticia</label>
+            <br>
+            <textarea name="body" ngModel required #body="ngModel" id="body" cols="30" rows="10"></textarea>           
+          </div>
+  
+          <div>
+            <br>
+            <app-storage id="nnew"></app-storage>
+          </div>
+  
+          <div>
+            <label for="topic">Topico principal</label>
+            <br>
+            <select name="topic" ngModel required #topic="ngModel" id="topic">
+              <option value="">Selecciona un tópico</option>
+              <option *ngFor="let topic of Topics | async" value="{{topic.name}}">{{topic.name}}</option>
+            </select>
+          </div>
+          
+          <br>
+          <input class="btn" type="submit" value="Agregar">
+        </form>
+  
+        <a href="#" *ngIf="editando" (click)="editando = false" >Cancelar edición</a>
+        <form *ngIf="editando" #Enews="ngForm" (ngSubmit)="onEditNew(Enews)" id="nedit" method="post" enctype="multipart/form-data">
+          <div>
+              <label for="id">ID</label>
+              <br>
+              <input name="id" ngModel required minlength="4" disabled #id="ngModel" id="idn" type="text">
+    
+            </div>
+          <div>
+              <label for="title">Titulo</label>
+              <br>
+              <input name="title" ngModel required minlength="4" #title="ngModel" id="title" type="text">
+    
+            </div>
+            <div>
+              <label for="body">Cuerpo de noticia</label>
+              <br>
+              <textarea name="body" ngModel required #body="ngModel" id="body" cols="30" rows="10"></textarea>           
+            </div>
+    
+            <div>
+              <label for="img">Imagen previa</label>
+              <br>
+              <img src="" id="imgen" width="150px" alt="">
+              <br>
+              <app-storage id="neditst" ></app-storage>
+            </div>
+    
+            <div>
+              <label for="topic">Topico principal</label>
+              <br>
+              <select name="topic" ngModel required #topic="ngModel" id="topic">
+                <option value="">Selecciona un tópico</option>
+                <option *ngFor="let topic of Topics | async" value="{{topic.name}}">{{topic.name}}</option>
+              </select>
+            </div>
+          <br>
+  
+  
+          <input class="btn" type="submit" value="Editar">
+  
+        </form>
+      </div>
+  
+  
+      <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8" style="height: 30rem;overflow-y:scroll;">
+        <table *ngIf="!loading" class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Titulo</th>
+              <th scope="col">Cuerpo</th>
+              <th scope="col">Imagen</th>
+              <th scope="col">Tópico</th>
+              <th scope="col">Editar</th>
+              <th scope="col">Eliminar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let new of News | async; let i = index">
+              <th scope="row">{{i+1}}</th>
+              <td>{{new.title}}</td>
+              <td>{{new.body}}</td>
+              <td>
+                <img [src]="new.img" width="150px" alt="" srcset=""> </td>
+              <td>{{new.topic_id}}</td>
+              <td>
+                <button (click)="onSelectNew(new)" class="btn btn-success">Editar</button>
+              </td>
+              <td>
+                <button (click)="API.deleteNew(new.id)" class="btn btn-danger">X</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+  
+        <app-loading *ngIf="loading"></app-loading>
+  
+      </div>
+  
+    </div>
+    <div class="row">
+  
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <form #topicF="ngForm" (ngSubmit)="onTopic(topicF)" id="topicForm" action="">
+          <div>
+            <label for="text_m">Nombre tópico</label>
+            <br>
+            <input name="name" ngModel required #name="ngModel" id="text_m" type="text">
+          </div>
+          <br>
+          <button class="btn" type="submit">Agregar tópico</button>
+        </form>
+        <br>
+        <div style="height: 10rem;overflow-y:scroll;">
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Eliminar</th>
+  
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let topic of Topics | async; let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{topic.name}}</td>
+                <td>
+                  <button (click)="API.deleteTopic(topic.id)" class="btn btn-danger">X</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  
+
+
+<div id="contacto" style="display: none;">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">email</th>
+        <th scope="col">Experiencia</th>
+        <th scope="col">Fecha</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="!loading">
+      <tr *ngFor="let contact of Contacts | async;let i = index">
+        <th scope="row">{{i + 1}}</th>
+        <td>{{contact.email}}</td>
+        <td class="text-wrap">{{contact.exp}}</td>
+        <td>{{contact.date}}</td>
+        <td>
+          <button (click)="deleteContact(contact.id)" class="btn btn-danger">X</button>
+        </td>
+      </tr>
+    </tbody>
+    <app-loading *ngIf="loading"></app-loading>
+  </table>
+</div>
+<hr>

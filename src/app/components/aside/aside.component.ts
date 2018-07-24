@@ -14,11 +14,15 @@ import { Observable } from 'rxjs';
 export class AsideComponent implements OnInit {
 
   public genres:Observable<any>;
+  public colors:Observable<any>;
+  public brands:Observable<any>;
 
   constructor(private API:APIService) { }
 
   ngOnInit() {
     this.genres = this.API.getGenres();
+    this.colors = this.API.getColors();
+    this.brands = this.API.getBrand();
   }
 
 }

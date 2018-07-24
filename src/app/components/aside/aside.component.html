@@ -19,12 +19,10 @@
       <li class="list-group-item active">Marca</li>
     </ul>
     <ul class="list-group list-group-flush" style="overflow-y:scroll;">
-      <li class="list-group-item">
+     <li *ngFor="let brand of brands | async;let i = index" class="list-group-item">
         <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="customCheck">
-          <label class="custom-control-label" for="customCheck">
-            hello
-          </label>
+          <input type="checkbox" class="custom-control-input" id="brandChecks{{i}}">
+          <label class="custom-control-label" for="brandChecks{{i}}">{{brand.name  | uppercase}}</label>
         </div>
       </li>
       <!--<li class="list-group-item">Talla (calzado)</li>
@@ -38,14 +36,12 @@
       <li class="list-group-item active">Color</li>
     </ul>
     <ul class="list-group list-group-flush" style="overflow-y:scroll;">
-      <li class="list-group-item">
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="customCheckq">
-          <label class="custom-control-label" for="customCheckq">
-            Hello
-          </label>
-        </div>
-      </li>
+        <li *ngFor="let color of colors | async;let i = index" class="list-group-item">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="colorChecks{{i}}">
+              <label class="custom-control-label" for="colorChecks{{i}}">{{color.name | uppercase}}</label>
+            </div>
+          </li>
     </ul>
   </div>
   <br>
@@ -56,7 +52,7 @@
         <label for="priceRange">Rango de: 0 a
           <input id="max" type="number" placeholder="Defina máximo" name="" value="">
         </label>
-        <input type="range" class="custom-range" id="priceRange">
+        <input type="range" min="0" class="custom-range" id="priceRange">
       </li>
     </ul>
   </div>
