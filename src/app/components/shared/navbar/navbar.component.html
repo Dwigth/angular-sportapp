@@ -4,13 +4,52 @@
       <img src="../../../../assets/img/eder2.png" width="100" height="100" alt="">
     </a>
     <!-- <a class="py-2 d-none d-md-inline-block" href="#">Productos</a> -->
-    <a class="py-2 d-none d-md-inline-block" >
+    <a class="py-2 d-none d-md-inline-block">
       <form class="" action="index.html" method="post">
-        <input type="text"  name="" placeholder="Playeras,pantalones,tenis..." value="">
-        <button type="button" class="btn btn-warning" name="button">Buscar</button>
+        <input #request type="text" (keyup)="search(request.value)" name="" placeholder="Playeras,pantalones,tenis..." value="">
+        <button type="button" (click)="disable()" class="btn btn-warning" data-toggle="modal" data-target=".bd-example-modal-lg">Buscar</button>
       </form>
     </a>
     <app-login></app-login>
-    
-</div>
+  </div>
 </nav>
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{message}}</h5>
+
+      </div>
+      <div class="modal-body">
+        <app-loading *ngIf="searching"></app-loading>
+        <hr>
+        <!-- Aqui van los resultados -->
+        <div class="container" *ngIf="show">
+          <div class="card-deck">
+            <div *ngFor="let product of searchResult; let i = index">
+
+              <div class="card" style="margin-top: 1rem;">
+                <div>
+                  <div class="text-center">
+                    <img class="card-img-top" style="width:140px" [src]="product.img" alt="Card image cap">
+                  </div>
+                  <hr>
+                  <div class="card-body">
+                    <p class="card-text">{{product.name}}</p>
+                  </div>
+                  <div class="card-footer">
+                     <small class="text-muted">Precio: ${{product.price}}</small>
+                    <!--<small> / </small>
+                    <button class="btn btn-warning btn-sm">¡Ver articulo!</button> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

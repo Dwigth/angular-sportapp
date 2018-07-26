@@ -60,7 +60,7 @@ export class AdminComponent implements OnInit {
     let product = new Product();
     product.name = Form.value.name;
     product.img = url;
-    product.price = Form.value.price;
+    product.price = +Form.value.price;
     product.brand_id = Form.value.brand;
     product.color_id = Form.value.color;
     product.genre_id = Form.value.cat;

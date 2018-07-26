@@ -4,45 +4,69 @@
     <ul class="list-group list-group-flush">
       <li class="list-group-item active">Género</li>
     </ul>
-    <ul class="list-group list-group-flush">
-      <li *ngFor="let genre of genres | async;let i = index" class="list-group-item">
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="customChecks{{i}}">
-          <label class="custom-control-label" for="customChecks{{i}}">{{genre.cat}}</label>
-        </div>
-      </li>
-    </ul>
+    <form>
+      <ul class="list-group list-group-flush">
+          <li  class="list-group-item">
+              <div class="custom-control custom-radio">
+                  <input (click)="properties.splice(1,1)" name="genre" type="radio" class="custom-control-input" id="customRadio">
+                  <label class="custom-control-label" for="customRadio">Ninguno</label>
+              </div>
+            </li>
+        <li *ngFor="let genre of genres | async;let i = index" class="list-group-item">
+          <div class="custom-control custom-radio">
+            <input (click)="findBy('genre_id',genre.cat)" name="genre" type="radio" class="custom-control-input" id="customRadio{{i}}">
+            <label class="custom-control-label" for="customRadio{{i}}">{{genre.cat}}</label>
+          </div>
+        </li>
+      </ul>
+    </form>
   </div>
   <br>
-  <div class="card" style="width: 18rem;height:15rem;">
+  <div class="card" style="width: 18rem;">
     <ul class="list-group list-group-flush">
       <li class="list-group-item active">Marca</li>
     </ul>
-    <ul class="list-group list-group-flush" style="overflow-y:scroll;">
-     <li *ngFor="let brand of brands | async;let i = index" class="list-group-item">
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="brandChecks{{i}}">
-          <label class="custom-control-label" for="brandChecks{{i}}">{{brand.name  | uppercase}}</label>
-        </div>
-      </li>
-      <!--<li class="list-group-item">Talla (calzado)</li>
+    <form action="">
+      <ul class="list-group list-group-flush" style="overflow-y:scroll;height: 15rem;">
+          <li  class="list-group-item">
+              <div class="custom-control custom-radio">
+                  <input (click)="properties.splice(1,1)" name="brand" type="radio" class="custom-control-input" id="brandChecks">
+                  <label class="custom-control-label" for="brandChecks">NINGUNO</label>
+              </div>
+            </li>
+        <li *ngFor="let brand of brands | async;let i = index" class="list-group-item">
+          <div class="custom-control custom-radio">
+            <input (click)="findBy('brand_id',brand.name)" name="brand" type="radio" class="custom-control-input" id="brandChecks{{i}}">
+            <label class="custom-control-label" for="brandChecks{{i}}">{{brand.name | uppercase}}</label>
+          </div>
+        </li>
+        <!--<li class="list-group-item">Talla (calzado)</li>
       <li class="list-group-item">Talla (ropa top)</li>
       <li class="list-group-item">Marca </li>-->
-    </ul>
+      </ul>
+    </form>
   </div>
   <br>
-  <div class="card" style="width: 18rem;height:20rem;">
+  <div class="card" style="width: 18rem;">
     <ul class="list-group list-group-flush">
       <li class="list-group-item active">Color</li>
     </ul>
-    <ul class="list-group list-group-flush" style="overflow-y:scroll;">
+    <form>
+      <ul class="list-group list-group-flush" style="overflow-y:scroll;height: 18rem;">
+        <li  class="list-group-item">
+          <div class="custom-control custom-radio">
+              <input (click)="properties.splice(1,2)" name="color" type="radio" class="custom-control-input" id="colorChecks">
+              <label class="custom-control-label" for="colorChecks">NINGUNO</label>
+          </div>
+        </li>
         <li *ngFor="let color of colors | async;let i = index" class="list-group-item">
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="colorChecks{{i}}">
-              <label class="custom-control-label" for="colorChecks{{i}}">{{color.name | uppercase}}</label>
-            </div>
-          </li>
-    </ul>
+          <div class="custom-control custom-radio">
+            <input (click)="findBy('color_id',color.name)" name="color" type="radio" class="custom-control-input" id="colorChecks{{i}}">
+            <label class="custom-control-label" for="colorChecks{{i}}">{{color.name | uppercase}}</label>
+          </div>
+        </li>
+      </ul>
+    </form>
   </div>
   <br>
   <div class="card" style="width: 18rem;">
@@ -50,9 +74,9 @@
       <li class="list-group-item active">Precios</li>
       <li class="list-group-item">
         <label for="priceRange">Rango de: 0 a
-          <input id="max" type="number" placeholder="Defina máximo" name="" value="">
+          <input id="max" #max (change)="searchByPrice(max.value)" type="number" placeholder="Defina máximo" name="" value="">
         </label>
-        <input type="range" min="0" class="custom-range" id="priceRange">
+        <!-- <input type="range" min="0" class="custom-range" id="priceRange"> -->
       </li>
     </ul>
   </div>
