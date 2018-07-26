@@ -23,6 +23,9 @@
         </div>
         <!--  -->
         <div *ngIf="i === 1" class="card p-3">
+            <div class="card-header">
+                <img class="card-img" [src]="new.img" alt="Card image">
+              </div>
           <blockquote class="blockquote mb-0 card-body">
             <p>{{new.title}}</p>
             <footer class="blockquote-footer">
@@ -47,6 +50,9 @@
         <!--  -->
 
         <div *ngIf="i === 3" class="card bg-primary text-white text-center p-3">
+            <div class="card-header">
+                <img class="card-img" [src]="new.img" alt="Card image">
+              </div>
           <blockquote class="blockquote mb-1">
             <p>{{new.title}}</p>
             <footer class="">
@@ -59,6 +65,9 @@
         </div>
         <!--  -->
         <div *ngIf="i === 4" class="card text-center">
+            <div class="card-header">
+                <img class="card-img" [src]="new.img" alt="Card image">
+              </div>
           <div class="card-body">
             <h5 class="card-title">{{new.title}}</h5>
             <p class="card-text">{{new.body}}</p>
@@ -86,6 +95,9 @@
         </div>
         <!--  -->
         <div *ngIf="i === 6" class="card">
+            <div class="card-header">
+                <img class="card-img" [src]="new.img" alt="Card image">
+              </div>
           <div class="card-body">
             <h5 class="card-title">{{new.title}}</h5>
             <p class="card-text">{{new.body}}</p>

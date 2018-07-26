@@ -21,7 +21,7 @@ export class AsideComponent implements OnInit {
   public currentResult: Array<any>;
 
   private lastProperty: string;
-  private properties: Array<any> = [];
+  public properties: Array<any> = [];
   private searchResult: Array<Product> = [];
 
 
