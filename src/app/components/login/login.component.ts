@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
       console.log('Puede pasar');
       this.access = true;
       sessionStorage.setItem('auth', this.username);
-      window.location.assign('/admin');
+      window.location.assign('#/admin');
     }else{
       console.log('No puede pasar');
       
