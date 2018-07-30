@@ -20,6 +20,7 @@ export class AsideComponent implements OnInit {
   public brands: Observable<any>;
   public currentResult: Array<any>;
 
+  private AllProducts: Array<Product> = [];
   private lastProperty: string;
   public properties: Array<any> = [];
   private searchResult: Array<Product> = [];
@@ -32,16 +33,22 @@ export class AsideComponent implements OnInit {
     this.colors = this.API.getColors();
     this.brands = this.API.getBrand();
 
-    //Obtenemos los datos
     setTimeout(() => {
+      this.getProducts();
+    }, 1000);
+  }
+
+  getProducts(){
+     //Obtenemos los datos
+    
       this.API.getProducts()
         .subscribe(docs => {
           docs.forEach(doc => {
             const product = doc as Product;
             this.searchResult.push(product);
+            this.AllProducts.push(product);
           });
         });
-    }, 1000);
   }
 
   findBy(property: string, query: string) {
@@ -97,39 +104,10 @@ export class AsideComponent implements OnInit {
   }
 
   searchByPrice(max:number){
-    const length = this.properties.length;
-    
 
-    if (length > 1) {
-      // console.log("Mayor a 2");
-      let temp = [];        
-        for (let index = 0; index < this.searchResult.length; index++) {
-          const element = this.searchResult[index];
-          if(length === 2){
-
-            if(element[this.properties[0].property] === this.properties[0].query && 
-              element[this.properties[1].property] === this.properties[1].query &&
-              element.price <= max){
-                temp.push(element);
-            }
-
-          }else if(length === 3){
-            if(element[this.properties[0].property] === this.properties[0].query && 
-              element[this.properties[1].property] === this.properties[1].query &&
-              element[this.properties[2].property] === this.properties[2].query &&
-              element.price <= max){
-                temp.push(element);
-            }
-          }
-        }
-
-        this.currentResult = temp;
-      // console.log("Resultado: ", temp);
-    }else{
-
-      let temp = this.currentResult.filter(ele => ele.price <= max);
+      let temp = this.AllProducts.filter(ele => ele.price <= max);
       this.currentResult = temp;
-    }
-    this.DATA.changeData(this.currentResult);
+
+     this.DATA.changeData(this.currentResult); 
   }
 }

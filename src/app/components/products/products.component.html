@@ -18,7 +18,7 @@
           <div class="card-footer">
             <small class="text-muted">Precio: ${{product.price}}</small>
             <small> / </small>
-            <button class="btn btn-warning btn-sm">¡Ver articulo!</button>
+            <button class="btn btn-warning btn-sm" (click)="getSelection(product)" data-toggle="modal" data-target="#em">¡Ver articulo!</button>
             <hr>
             <span class="badge badge-primary">{{product.type_id}}</span>|
             <span class="badge badge-secondary">{{product.genre_id}}</span>|
@@ -30,6 +30,46 @@
       </div>
     </div>
     <br>
+
+    <!-- Modal -->
+    <div class="modal fade" id="em" tabindex="-1" role="dialog" aria-labelledby="emLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="emLabel">Producto: {{product.id}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="card" style="margin-top: 1rem;">
+              <div>
+                <div class="text-center">
+                  <img class="card-img-top" style="width:140px" [src]="product.img" alt="Card image cap">
+                </div>
+                <hr>
+                <div class="card-body">
+                  <p class="card-text text-center">{{product.name}}</p>
+                </div>
+                <div class="card-footer text-center">
+                  <small class="text-muted">Precio: ${{product.price}}</small>
+                  <small> / </small>
+                  <hr>
+                  <span class="badge badge-primary">{{product.type_id}}</span>|
+                  <span class="badge badge-secondary">{{product.genre_id}}</span>|
+                  <span class="badge badge-success">{{product.color_id}}</span>|
+                  <span class="badge badge-warning">{{product.brand_id}}</span>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- <div class="card-deck">
 

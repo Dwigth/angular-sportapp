@@ -14,6 +14,7 @@ export class ProductsComponent implements OnInit {
 
   public products:Observable<any>;
   public news:Observable<News>;
+  public product:any;
 
 
 
@@ -22,6 +23,10 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
     this.products = this.DATA.currentData;
     this.news = this.API._getLastNews();
+  }
+
+  getSelection(product){
+    this.product = product;
   }
 
   loading(){
